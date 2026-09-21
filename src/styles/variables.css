@@ -1,0 +1,14 @@
+:root {
+  --color-black: #000000;
+  --color-dark: #171717;
+  --color-gray: #242424;
+  --color-white: #fff;
+  --color-accent: #f68806;
+  --page: #212121;
+  --panel: #323232;
+  --card: #444;
+  --muted: #bcbcbc;
+  --heading: 'Barlow Condensed', Impact, sans-serif;
+  --body: 'Inter', Arial, sans-serif;
+  --radius: 28px;
+}
