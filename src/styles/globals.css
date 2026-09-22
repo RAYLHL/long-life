@@ -996,6 +996,7 @@ main > footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 30px;
   gap: 28px;
 }
 .stories-heading > .chevrons {
@@ -1964,7 +1965,6 @@ main > footer {
   }
   .stories h2 {
     font-size: clamp(42px, 10vw, 64px);
-    margin-top: 28px;
   }
   .stories-intro > p {
     font-size: 12px;
@@ -2104,7 +2104,7 @@ main > footer {
 /* Preserve the reference section height despite the Portuguese two-line title. */
 @media (min-width: 1200px) {
   .stories h2 {
-    margin-top: 28px;
+    margin-top: 0px;
   }
   .stories-intro > p {
     margin: 18px 0 14px;
