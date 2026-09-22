@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import Header from './Header';
-import { CTA } from './Shared';
 
 const heroSlides = [
-  { src: '/images/hero.png', alt: 'Profissionais LONG LIFE acompanhando um treino na academia' },
+  // { src: '/images/hero.png', alt: 'Profissionais LONG LIFE acompanhando um treino na academia' },
   { src: '/images/treadmills.png', alt: 'Área de esteiras da academia LONG LIFE' },
   { src: '/images/functional.png', alt: 'Espaço de treinamento funcional LONG LIFE' },
 ];
@@ -36,14 +35,11 @@ export default function Hero() {
         <Header />
         <div className="hero-copy">
           <h1>
-            <span>SUA JORNADA</span>
-            <span>COMEÇA AQUI</span>
+            <span className="hero-academia">ACADEMIA</span>
+            <img className="hero-logo-title" src="/images/logoTitle.png" alt="Academia Long Life" />
           </h1>
-          <p>
-            Estrutura, acompanhamento e profissionais preparados para ajudar você
-            a alcançar seus objetivos.
-          </p>
-          <CTA href="#planos">COMECE AGORA</CTA>
+          <p>O lugar perfeito para<br />mudar de vida!</p>
+          <a className="hero-cta" href="#planos">SEJA NOSSO ALUNO</a>
         </div>
       </div>
       <div className="hero-indicators" aria-label="Slides do Hero">

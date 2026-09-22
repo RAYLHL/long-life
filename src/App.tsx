@@ -2,6 +2,8 @@ import Hero from './components/Hero';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import { useEffect, useRef, useState } from 'react';
 import Training from './components/Training';
+import Gallery from './components/Gallery';
+import TeamSection from './components/TeamSection';
 import Plans from './components/Plans';
 import Stories from './components/Stories';
 import Newsletter from './components/Newsletter';
@@ -22,7 +24,9 @@ export default function App() {
       <main>
         <Hero />
         <Training />
+        <Gallery />
         <Plans onSelect={setSelected} />
+        <TeamSection />
         <Stories />
         <Newsletter />
         <Footer />

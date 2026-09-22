@@ -27,6 +27,26 @@ export default function Training() {
             </a>
           </div>
         </div>
+        <div className="training-cards" data-reveal>
+          <a className="training-card" href="#contato">
+            <img src="/images/training.png" alt="Musculação" loading="lazy" />
+            <span className="training-card-icon"><img src="/icon/icon-musculacao.png" alt="" /></span>
+            <strong>MUSCULAÇÃO</strong>
+            <span className="training-card-arrow"><img src="/icon/icon-arrow.png" alt="" /></span>
+          </a>
+          <a className="training-card" href="#contato">
+            <img src="/images/functional.png" alt="Treinamento funcional" loading="lazy" />
+            <span className="training-card-icon"><img src="/icon/icon-funcional.png" alt="" /></span>
+            <strong>FUNCIONAL</strong>
+            <span className="training-card-arrow"><img src="/icon/icon-arrow.png" alt="" /></span>
+          </a>
+          <a className="training-card" href="#contato">
+            <img src="/images/outdoor.png" alt="Pilates" loading="lazy" />
+            <span className="training-card-icon"><img src="/icon/icon-pilates.png" alt="" /></span>
+            <strong>PILATES</strong>
+            <span className="training-card-arrow"><img src="/icon/icon-arrow.png" alt="" /></span>
+          </a>
+        </div>
         <div className="training-photo" data-reveal>
           <img
             src="/images/training.png"

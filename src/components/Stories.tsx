@@ -3,19 +3,19 @@ import { Chevrons } from './Shared';
 import { statistics } from '../data/statistics';
 const stories = [
   {
-    name: 'Juntos, mais fortes',
+    name: 'Elizabete Correa',
     image: '/images/hero.png',
-    text: 'Cada conquista começa com um primeiro passo. Na LONG LIFE, a orientação e o apoio fazem parte de cada treino.',
+    text: 'Eu super recomendo essa equipe. É profissional e hoje já consigo ficar bem à vontade e até mergulhar.',
   },
   {
-    name: 'Movimento ao ar livre',
+    name: 'Pamela Biazoto',
     image: '/images/beach.png',
-    text: 'Treinar também é compartilhar bons momentos. Movimento, companhia e disposição para a vida.',
+    text: 'Lugar excelente, meu filho ama fazer natação. Super indico, é tudo limpinho e organizado.',
   },
   {
-    name: 'Uma nova rotina',
+    name: 'Junior Nelson Pedro Bom',
     image: '/images/outdoor.png',
-    text: 'Encontre o seu ritmo e transforme o movimento em um hábito. Um dia de cada vez, uma evolução de cada vez.',
+    text: 'Ótima academia! Profissionais super qualificados, ambiente agradável e excelente piscina.',
   },
 ];
 export default function Stories() {
@@ -25,17 +25,15 @@ export default function Stories() {
     <section className="stories" id="historias">
       <div className="section-content">
         <div className="stories-top">
-          <div className="stories-intro" data-reveal>
+          <div className="stories-heading" data-reveal>
             <Chevrons />
-            <h2>
-              HISTÓRIAS DE
-              <br />
-              QUEM EVOLUIU
+            <h2>AVALIAÇÔES
             </h2>
-            <p>
+            <p className="stories-description">
               Mais que treinar, evoluir. Conheça os momentos de quem faz parte da
               nossa comunidade.
             </p>
+            <Chevrons />
             <div className="controls">
               <button
                 aria-label="História anterior"
@@ -52,20 +50,19 @@ export default function Stories() {
             </div>
           </div>
           <div className="stories-window">
-            <div
-              className="story-track"
-              style={{
-                transform: `translateX(calc(${index} * (-1 * (var(--story-width) + 26px))))`,
-              }}
-            >
-              {stories.map((s, i) => (
+            <div className="story-track">
+              {[...stories, ...stories].map((s, i) => (
                 <button
-                  key={s.name}
+                  key={`${s.name}-${i}`}
                   className="story-card"
-                  onClick={() => setActive(i)}
+                  onClick={() => setActive(i % stories.length)}
                   aria-label={`Abrir história: ${s.name}`}
                 >
-                  <img src={s.image} alt={s.name} loading="lazy" />
+                  <span className="testimonial-stars" aria-label="5 estrelas">★★★★★</span>
+                  <strong className="testimonial-name">{s.name}</strong>
+                  <span className="testimonial-role">Aluno LONG LIFE</span>
+                  <span className="testimonial-text">“{s.text}”</span>
+                  <img src={s.image} alt="" loading="lazy" aria-hidden="true" />
                   <span className="story-name">{s.name}</span>
                   <span className="story-play" aria-hidden="true">
                     ↗
