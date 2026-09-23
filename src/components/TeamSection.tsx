@@ -2,11 +2,11 @@ import { useMemo, useState } from 'react';
 import { Chevrons } from './Shared';
 
 const professionals = [
-  { name: 'João Silva', role: 'PERSONAL TRAINER', image: '/images/professional-1.png' },
-  { name: 'Gabriel Santos', role: 'PERSONAL TRAINER', image: '/images/professional-2.png' },
-  { name: 'Marina Costa', role: 'PERSONAL TRAINER', image: '/images/professional-3.png' },
-  { name: 'Lucas Martins', role: 'PREPARADOR FÍSICO', image: '/images/professional-1.png' },
-  { name: 'Ana Oliveira', role: 'PERSONAL TRAINER', image: '/images/professional-2.png' },
+  { name: 'João Silva', role: 'PERSONAL TRAINER', image: publicAsset('images/professional-1.png') },
+  { name: 'Gabriel Santos', role: 'PERSONAL TRAINER', image: publicAsset('images/professional-2.png') },
+  { name: 'Marina Costa', role: 'PERSONAL TRAINER', image: publicAsset('images/professional-3.png') },
+  { name: 'Lucas Martins', role: 'PREPARADOR FÍSICO', image: publicAsset('images/professional-1.png') },
+  { name: 'Ana Oliveira', role: 'PERSONAL TRAINER', image: publicAsset('images/professional-2.png') },
 ];
 
 const positionFor = (index: number, active: number) => {
@@ -57,3 +57,4 @@ export default function TeamSection() {
     </section>
   );
 }
+import { publicAsset } from '../utils/publicAsset';

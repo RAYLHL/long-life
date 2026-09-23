@@ -12,7 +12,7 @@ export default function Newsletter() {
           <h2>FIQUE POR DENTRO<br />DAS NOVIDADES LONG LIFE</h2>
           <div className="instagram-cta">
             <a className="instagram-profile" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
-              <img src="/icon/icons-insta.png" alt="" aria-hidden="true" />
+              <img src={publicAsset('icon/icons-insta.png')} alt="" aria-hidden="true" />
               <span>@acad.longlife</span>
             </a>
             <a className="instagram-follow" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">SEGUIR NO INSTAGRAM</a>
@@ -33,3 +33,4 @@ export default function Newsletter() {
     </section>
   );
 }
+import { publicAsset } from '../utils/publicAsset';

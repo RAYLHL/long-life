@@ -6,10 +6,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 const galleryItems = [
   { className: 'gallery-logo', type: 'logo' as const },
-  { className: 'gallery-left-photo', src: '/images/structure.png', alt: 'Área de musculação da Long Life' },
-  { className: 'gallery-center-photo', src: '/images/gym.png', alt: 'Espaço interno da Long Life' },
-  { className: 'gallery-right-photo', src: '/images/treadmills.png', alt: 'Esteiras da Long Life' },
-  { className: 'gallery-bottom-photo', src: '/images/outdoor.png', alt: 'Treino ao ar livre da Long Life' },
+  { className: 'gallery-left-photo', src: publicAsset('images/structure.png'), alt: 'Área de musculação da Long Life' },
+  { className: 'gallery-center-photo', src: publicAsset('images/gym.png'), alt: 'Espaço interno da Long Life' },
+  { className: 'gallery-right-photo', src: publicAsset('images/treadmills.png'), alt: 'Esteiras da Long Life' },
+  { className: 'gallery-bottom-photo', src: publicAsset('images/outdoor.png'), alt: 'Treino ao ar livre da Long Life' },
 ];
 
 export default function Gallery() {
@@ -38,7 +38,7 @@ export default function Gallery() {
         {galleryItems.map((item) => (
           <div className={`gallery-item gallery-frame ${item.className}`} key={item.className}>
             {item.type === 'logo' ? (
-              <img className="gallery-logo-image" src="/images/logoTitle.png" alt="Long Life" />
+              <img className="gallery-logo-image" src={publicAsset('images/logoTitle.png')} alt="Long Life" />
             ) : (
               <img src={item.src} alt={item.alt} />
             )}
@@ -48,3 +48,4 @@ export default function Gallery() {
     </section>
   );
 }
+import { publicAsset } from '../utils/publicAsset';

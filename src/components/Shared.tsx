@@ -19,12 +19,12 @@ export function Arrow({
 }
 export function Logo() {
   return (
-    <img className="logo" src="/images/logoSemFundo.png" alt="LONG LIFE Academia" />
+    <img className="logo" src={publicAsset('images/logoSemFundo.png')} alt="LONG LIFE Academia" />
   );
 }
 export function LogoTitle() {
   return (
-    <img className="logo" src="/images/logoTitle.png" alt="LONG LIFE Academia" />
+    <img className="logo" src={publicAsset('images/logoTitle.png')} alt="LONG LIFE Academia" />
   );
 }
 export function CTA({
@@ -41,3 +41,4 @@ export function CTA({
     </a>
   );
 }
+import { publicAsset } from '../utils/publicAsset';

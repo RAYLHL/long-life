@@ -48,10 +48,10 @@ export default function Footer() {
             aria-label="Redes sociais"
           >
             <span title="Instagram">
-              <img src="/icon/icons-insta.png" alt="Instagram" />
+              <img src={publicAsset('icon/icons-insta.png')} alt="Instagram" />
             </span>
             <span title="Facebook">
-              <img src="/icon/icon-facebook.png" alt="Facebook" />
+              <img src={publicAsset('icon/icon-facebook.png')} alt="Facebook" />
             </span>
             <span title="YouTube">▷</span>
           </span>
@@ -66,3 +66,4 @@ export default function Footer() {
     </footer>
   );
 }
+import { publicAsset } from '../utils/publicAsset';

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import Header from './Header';
+import { publicAsset } from '../utils/publicAsset';
 
 const heroSlides = [
   // { src: '/images/hero.png', alt: 'Profissionais LONG LIFE acompanhando um treino na academia' },
-  { src: '/images/treadmills.png', alt: 'Área de esteiras da academia LONG LIFE' },
-  { src: '/images/functional.png', alt: 'Espaço de treinamento funcional LONG LIFE' },
+  { src: publicAsset('images/treadmills.png'), alt: 'Área de esteiras da academia LONG LIFE' },
+  { src: publicAsset('images/functional.png'), alt: 'Espaço de treinamento funcional LONG LIFE' },
 ];
 
 export default function Hero() {
@@ -36,7 +37,7 @@ export default function Hero() {
         <div className="hero-copy">
           <h1>
             <span className="hero-academia">ACADEMIA</span>
-            <img className="hero-logo-title" src="/images/logoTitle.png" alt="Academia Long Life" />
+            <img className="hero-logo-title" src={publicAsset('images/logoTitle.png')} alt="Academia Long Life" />
           </h1>
           <p className="hero-tagline">TREINE FORTE PARA<br />VIVER LONGE!</p>
           <div className="hero-cta-wrap">

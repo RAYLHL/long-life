@@ -43,7 +43,7 @@ export default function Stories() {
           <p className={`review-text ${expanded ? 'is-expanded' : ''}`}>“{review.text}”</p>
           {review.text.length > 120 && <button className="review-more" type="button" onClick={() => setExpanded((value) => !value)}>{expanded ? 'VER MENOS' : 'VER MAIS'}</button>}
           <div className="review-divider" />
-          <div className="review-footer"><div className="review-author"><img src="/images/user-jojo.png" alt="" /><span><strong>{review.name}</strong><small>ALUNO LONG LIFE</small></span></div><a href={review.googleUrl} target="_blank" rel="noopener noreferrer">VER NO GOOGLE <span aria-hidden="true">↗</span></a></div>
+          <div className="review-footer"><div className="review-author"><img src={publicAsset('images/user-jojo.png')} alt="" /><span><strong>{review.name}</strong><small>ALUNO LONG LIFE</small></span></div><a href={review.googleUrl} target="_blank" rel="noopener noreferrer">VER NO GOOGLE <span aria-hidden="true">↗</span></a></div>
         </div>
         <button className="reviews-arrow reviews-arrow-right" type="button" onClick={() => go(1)} aria-label="Próxima avaliação"><Chevron direction="right" /></button>
         <div className="review-dots" aria-label="Selecionar avaliação">{reviews.map((item, itemIndex) => <button key={item.name} className={itemIndex === index ? 'is-active' : ''} type="button" onClick={() => { setDirection(itemIndex >= index ? 1 : -1); setIndex(itemIndex); }} aria-label={`Ver avaliação de ${item.name}`} />)}</div>
@@ -51,3 +51,4 @@ export default function Stories() {
     </div>
   </section>;
 }
+import { publicAsset } from '../utils/publicAsset';
