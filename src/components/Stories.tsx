@@ -1,125 +1,53 @@
-import { useState } from 'react';
-import { Chevrons } from './Shared';
-import { statistics } from '../data/statistics';
-const stories = [
-  {
-    name: 'Elizabete Correa',
-    image: '/images/hero.png',
-    text: 'Eu super recomendo essa equipe. É profissional e hoje já consigo ficar bem à vontade e até mergulhar.',
-  },
-  {
-    name: 'Pamela Biazoto',
-    image: '/images/beach.png',
-    text: 'Lugar excelente, meu filho ama fazer natação. Super indico, é tudo limpinho e organizado.',
-  },
-  {
-    name: 'Junior Nelson Pedro Bom',
-    image: '/images/outdoor.png',
-    text: 'Ótima academia! Profissionais super qualificados, ambiente agradável e excelente piscina.',
-  },
+import { useEffect, useState } from 'react';
+import { CTA } from './Shared';
+
+const GOOGLE_MAPS_URL = 'https://www.google.com/maps/place/Academia+Long+Life/@-26.8660433,-48.6409269,17z/data=!3m1!4b1!4m6!3m5!1s0x94d8cd083615e04f:0x77298ca11180b396!8m2!3d-26.8660433!4d-48.6409269!16s%2Fg%2F11yzw_bwgc';
+const reviews = [
+  { name: 'Jhonatan Esperandio', text: 'Minha experiência foi maravilhosa, o instrutor da manhã super atencioso esclareceu todas as minhas dúvidas e me auxiliou naquilo que eu precisava 💕', googleUrl: GOOGLE_MAPS_URL },
+  { name: 'Pamela Biazoto', text: 'Lugar excelente, meu filho ama fazer natação. Super indico, é tudo limpinho e organizado.', googleUrl: GOOGLE_MAPS_URL },
+  { name: 'Junior Nelson Pedro Bom', text: 'Ótima academia! Profissionais super qualificados, ambiente agradável e excelente piscina.', googleUrl: GOOGLE_MAPS_URL },
 ];
+
+function Chevron({ direction }: { direction: 'left' | 'right' }) { return <svg viewBox="0 0 24 24" aria-hidden="true"><path d={direction === 'left' ? 'm15 18-6-6 6-6' : 'm9 18 6-6-6-6'} /></svg>; }
+
 export default function Stories() {
   const [index, setIndex] = useState(0);
-  const [active, setActive] = useState<number | null>(null);
-  return (
-    <section className="stories" id="historias">
-      <div className="section-content">
-        <div className="stories-top">
-          <div className="stories-heading" data-reveal>
-            <Chevrons />
-            <h2>AVALIAÇÔES
-            </h2>
-            <p className="stories-description">
-              Mais que treinar, evoluir. Conheça os momentos de quem faz parte da
-              nossa comunidade.
-            </p>
-            <Chevrons />
-            <div className="controls">
-              <button
-                aria-label="História anterior"
-                onClick={() => setIndex((index + 2) % 3)}
-              >
-                ←
-              </button>
-              <button
-                aria-label="Próxima história"
-                onClick={() => setIndex((index + 1) % 3)}
-              >
-                →
-              </button>
-            </div>
-          </div>
-          <div className="stories-window">
-            <div className="story-track">
-              {[...stories, ...stories].map((s, i) => (
-                <button
-                  key={`${s.name}-${i}`}
-                  className="story-card"
-                  onClick={() => setActive(i % stories.length)}
-                  aria-label={`Abrir história: ${s.name}`}
-                >
-                  <span className="testimonial-stars" aria-label="5 estrelas">★★★★★</span>
-                  <strong className="testimonial-name">{s.name}</strong>
-                  <span className="testimonial-role">Aluno LONG LIFE</span>
-                  <span className="testimonial-text">“{s.text}”</span>
-                  <img src={s.image} alt="" loading="lazy" aria-hidden="true" />
-                  <span className="story-name">{s.name}</span>
-                  <span className="story-play" aria-hidden="true">
-                    ↗
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="statistics">
-          {statistics.map((s) => (
-            <div className="stat" key={s.label} data-reveal>
-              <strong>
-                {s.prefix}
-                <span data-count={s.value}>
-                  {s.value.toLocaleString('pt-BR')}
-                </span>
-                {s.suffix}
-              </strong>
-              <p>{s.label}</p>
-              <small>{s.detail}</small>
-            </div>
-          ))}
-        </div>
-        <span className="mock-note">Indicadores demonstrativos.</span>
-        {active !== null && (
-          <div className="modal-backdrop" onClick={() => setActive(null)}>
-            <section
-              className="story-dialog"
-              role="dialog"
-              aria-modal="true"
-              aria-label={stories[active].name}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                autoFocus
-                className="close-modal"
-                onClick={() => setActive(null)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Escape') setActive(null);
-                }}
-                aria-label="Fechar história"
-              >
-                ×
-              </button>
-              <img src={stories[active].image} alt={stories[active].name} />
-              <div>
-                <h2>{stories[active].name}</h2>
-                <p>{stories[active].text}</p>
-                <small>
-                  Conteúdo ilustrativo sobre os registros da academia.
-                </small>
-              </div>
-            </section>
-          </div>
-        )}
+  const [direction, setDirection] = useState(1);
+  const [expanded, setExpanded] = useState(false);
+  const review = reviews[index];
+  const go = (step: number) => { setDirection(step); setIndex((current) => (current + step + reviews.length) % reviews.length); };
+  useEffect(() => { setExpanded(false); }, [index]);
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setDirection(1);
+      setIndex((current) => (current + 1) % reviews.length);
+    }, 5000);
+    return () => window.clearInterval(interval);
+  }, []);
+  return <section className="reviews-section" id="historias">
+    <span className="reviews-background-mark" aria-hidden="true">“</span>
+    <div className="reviews-layout section-content">
+      <div className="reviews-intro" data-reveal>
+        <div className="reviews-eyebrow"><span>AVALIAÇÕES</span><i /></div>
+        <h2>O QUE NOSSOS<br /><em>ALUNOS</em> DIZEM</h2>
+        <p>Resultados reais, de pessoas reais.<br />Aqui você encontra histórias de quem<br />já faz parte da Long Life.</p>
+        <span className="reviews-cta-wrap">
+          <span className="reviews-cta-back" aria-hidden="true" />
+          <CTA href="#contato">SEJA NOSSO ALUNO</CTA>
+        </span>
       </div>
-    </section>
-  );
+      <div className="reviews-stage" data-reveal>
+        <button className="reviews-arrow reviews-arrow-left" type="button" onClick={() => go(-1)} aria-label="Avaliação anterior"><Chevron direction="left" /></button>
+        <div className={`review-card review-slide-${direction > 0 ? 'next' : 'previous'}`} key={index}>
+          <div className="review-top"><div className="review-stars" aria-label="5 estrelas">★★★★★</div><span className="review-quote" aria-hidden="true">“</span></div>
+          <p className={`review-text ${expanded ? 'is-expanded' : ''}`}>“{review.text}”</p>
+          {review.text.length > 120 && <button className="review-more" type="button" onClick={() => setExpanded((value) => !value)}>{expanded ? 'VER MENOS' : 'VER MAIS'}</button>}
+          <div className="review-divider" />
+          <div className="review-footer"><div className="review-author"><img src="/images/user-jojo.png" alt="" /><span><strong>{review.name}</strong><small>ALUNO LONG LIFE</small></span></div><a href={review.googleUrl} target="_blank" rel="noopener noreferrer">VER NO GOOGLE <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <button className="reviews-arrow reviews-arrow-right" type="button" onClick={() => go(1)} aria-label="Próxima avaliação"><Chevron direction="right" /></button>
+        <div className="review-dots" aria-label="Selecionar avaliação">{reviews.map((item, itemIndex) => <button key={item.name} className={itemIndex === index ? 'is-active' : ''} type="button" onClick={() => { setDirection(itemIndex >= index ? 1 : -1); setIndex(itemIndex); }} aria-label={`Ver avaliação de ${item.name}`} />)}</div>
+      </div>
+    </div>
+  </section>;
 }

@@ -13,8 +13,9 @@ const positionFor = (index: number, active: number) => {
   const relative = (index - active + professionals.length) % professionals.length;
   if (relative === 0) return 'is-active';
   if (relative === 1) return 'is-carousel-right';
-  if (relative === professionals.length - 1) return 'is-carousel-left';
-  return 'is-carousel-hidden';
+  if (relative === 2) return 'is-carousel-far-right';
+  if (relative === 3) return 'is-carousel-far-left';
+  return 'is-carousel-left';
 };
 
 export default function TeamSection() {
@@ -33,7 +34,7 @@ export default function TeamSection() {
   };
 
   return (
-    <section className="team-section" aria-label="Nossa equipe">
+    <section className="team-section" id="equipe" aria-label="Nossa equipe">
       <div className="team-heading section-content">
         <Chevrons />
         <h2>CONHEÇA NOSSA EQUIPE</h2>

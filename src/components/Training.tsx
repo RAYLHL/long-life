@@ -1,84 +1,28 @@
+import { useRef, useState } from 'react';
 import { Chevrons, CTA } from './Shared';
 import { professionals } from '../data/professionals';
-export default function Training() {
-  return (
-    <section className="training-section" id="sobre">
-      <div className="training section-content">
-        <div className="training-heading" data-reveal>
-          <Chevrons />
-          <h2>
-            TREINE COM
-            <br />
-            QUEM ENTENDE
-          </h2>
-          <div className="offer">
-            <h3>
-              SEU PRIMEIRO
-              <br />
-              PASSO
-            </h3>
-            <p>
-              Conheça a estrutura.
-              <br />
-              Encontre seu ritmo.
-            </p>
-            <a href="#contato">
-              Vem treinar <span>➜</span>
-            </a>
-          </div>
-        </div>
-        <div className="training-cards" data-reveal>
-          <a className="training-card" href="#contato">
-            <img src="/images/training.png" alt="Musculação" loading="lazy" />
-            <span className="training-card-icon"><img src="/icon/icon-musculacao.png" alt="" /></span>
-            <strong>MUSCULAÇÃO</strong>
-            <span className="training-card-arrow"><img src="/icon/icon-arrow.png" alt="" /></span>
-          </a>
-          <a className="training-card" href="#contato">
-            <img src="/images/functional.png" alt="Treinamento funcional" loading="lazy" />
-            <span className="training-card-icon"><img src="/icon/icon-funcional.png" alt="" /></span>
-            <strong>FUNCIONAL</strong>
-            <span className="training-card-arrow"><img src="/icon/icon-arrow.png" alt="" /></span>
-          </a>
-          <a className="training-card" href="#contato">
-            <img src="/images/outdoor.png" alt="Pilates" loading="lazy" />
-            <span className="training-card-icon"><img src="/icon/icon-pilates.png" alt="" /></span>
-            <strong>PILATES</strong>
-            <span className="training-card-arrow"><img src="/icon/icon-arrow.png" alt="" /></span>
-          </a>
-        </div>
-        <div className="training-photo" data-reveal>
-          <img
-            src="/images/training.png"
-            alt="Profissional auxiliando um aluno durante o treino"
-            loading="lazy"
-            data-parallax
-          />
-        </div>
-        <div className="training-aside" data-reveal>
-          <div className="team-photo">
-            {professionals.slice(0, 2).map((p) => (
-              <img src={p.image} alt={p.alt} key={p.image} loading="lazy" />
-            ))}
-            <div className="team-count">
-              <strong>+10</strong>
-              <span>
-                Profissionais
-                <br />
-                com você
-              </span>
-            </div>
-            <a href="#contato" aria-label="Conheça nossa equipe">
-              ↗
-            </a>
-          </div>
-          <p>
-            Acompanhamento de perto e profissionais preparados para ajudar você a
-            ir além. Seu objetivo, com a orientação certa.
-          </p>
-          <CTA href="#contato">CONHEÇA A EQUIPE</CTA>
-        </div>
-      </div>
-    </section>
-  );
+
+type Modality = { title: string; image: string; imageAlt: string; icon: string; description: string; schedule: string[]; audience: string; benefits: string };
+const modalities: Modality[] = [
+  { title: 'MUSCULAÇÃO', image: '/images/training.png', imageAlt: 'Musculação', icon: '/icon/icon-musculacao.png', description: 'Força, saúde e resultados para o seu dia a dia.', schedule: ['[EDITAR] Segunda a sexta: horário a confirmar', '[EDITAR] Sábado: horário a confirmar'], audience: 'Todos os níveis', benefits: 'Mais força, saúde e qualidade de vida.' },
+  { title: 'FUNCIONAL', image: '/images/functional.png', imageAlt: 'Treinamento funcional', icon: '/icon/icon-funcional.png', description: 'Movimento, resistência e condicionamento para uma rotina mais ativa.', schedule: ['[EDITAR] Segunda a sexta: horário a confirmar', '[EDITAR] Sábado: horário a confirmar'], audience: 'Todos os níveis', benefits: 'Mais energia, mobilidade e condicionamento.' },
+  { title: 'PILATES', image: '/images/outdoor.png', imageAlt: 'Pilates', icon: '/icon/icon-pilates.png', description: 'Equilíbrio, mobilidade e consciência corporal para você se sentir melhor.', schedule: ['[EDITAR] Segunda a sexta: horário a confirmar', '[EDITAR] Sábado: horário a confirmar'], audience: 'Todos os níveis', benefits: 'Mais equilíbrio, postura e consciência corporal.' },
+];
+
+function DetailIcon({ type }: { type: 'clock' | 'users' | 'activity' }) { const paths = { clock: 'M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z', users: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75', activity: 'm3 12 4-4 4 8 4-12 4 8 2-2' }; return <svg className="training-detail-icon" viewBox="0 0 24 24" aria-hidden="true"><path d={paths[type]} /></svg>; }
+
+function TrainingCard({ modality }: { modality: Modality }) {
+  const [flipped, setFlipped] = useState(false); const [angle, setAngle] = useState(0);
+  const pointer = useRef({ id: -1, startX: 0, dragging: false });
+  const finish = (next: boolean) => { setFlipped(next); setAngle(next ? 180 : 0); };
+  const down = (e: React.PointerEvent<HTMLDivElement>) => { if ((e.target as HTMLElement).closest('button, a')) return; pointer.current = { id: e.pointerId, startX: e.clientX, dragging: false }; e.currentTarget.setPointerCapture(e.pointerId); };
+  const move = (e: React.PointerEvent<HTMLDivElement>) => { const p = pointer.current; if (p.id !== e.pointerId) return; const delta = e.clientX - p.startX; const valid = flipped ? delta > 0 : delta < 0; if (!p.dragging && Math.abs(delta) > 6 && valid) p.dragging = true; if (!p.dragging) return; const progress = Math.min(1, Math.abs(delta) / (e.currentTarget.clientWidth * .72)); setAngle(flipped ? 180 - progress * 180 : progress * 180); };
+  const up = (e: React.PointerEvent<HTMLDivElement>) => { const p = pointer.current; if (p.id !== e.pointerId) return; if (p.dragging) { const delta = e.clientX - p.startX; const threshold = e.currentTarget.clientWidth * .28; finish(flipped ? delta >= threshold : delta <= -threshold); } else setAngle(flipped ? 180 : 0); p.id = -1; p.dragging = false; };
+  return <div className={`training-card-wrapper ${pointer.current.dragging ? 'is-dragging' : ''}`} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}>
+    <div className="training-card-inner" style={{ transform: `rotateY(${angle}deg)`, transition: pointer.current.dragging ? 'none' : undefined }}>
+      <div className="training-card training-card-front"><img draggable={false} src={modality.image} alt={modality.imageAlt} loading="lazy" /><span className="training-card-icon"><img draggable={false} src={modality.icon} alt="" /></span><strong>{modality.title}</strong><button className="training-card-arrow" type="button" onClick={() => finish(true)} aria-label={`Ver informações sobre ${modality.title}`}><img draggable={false} src="/icon/icon-arrow.png" alt="" /></button></div>
+      <div className="training-card training-card-back" aria-hidden={!flipped}><button className="training-card-close" type="button" onClick={() => finish(false)} aria-label={`Voltar para ${modality.title}`}>×</button><div className="training-back-content"><h3>{modality.title}</h3><span className="training-accent-line" /><p className="training-description">{modality.description}</p><div className="training-facts"><div><DetailIcon type="clock" /><span><b>HORÁRIOS</b>{modality.schedule.map((item) => <small key={item}>{item}</small>)}</span></div><div><DetailIcon type="users" /><span><b>PÚBLICO</b><small>{modality.audience}</small></span></div><div><DetailIcon type="activity" /><span><b>BENEFÍCIOS</b><small>{modality.benefits}</small></span></div></div><a className="training-back-cta" href="#contato">SEJA NOSSO ALUNO <span aria-hidden="true">→</span></a></div></div>
+    </div></div>;
 }
+
+export default function Training() { return <section className="training-section" id="sobre"><div className="training section-content"><div className="training-heading" data-reveal><Chevrons /><h2>TREINE COM<br />QUEM ENTENDE</h2><div className="offer"><h3>SEU PRIMEIRO<br />PASSO</h3><p>Conheça a estrutura.<br />Encontre seu ritmo.</p><a href="#contato">Vem treinar <span>→</span></a></div></div><div className="training-cards" data-reveal>{modalities.map((modality) => <TrainingCard key={modality.title} modality={modality} />)}</div><div className="training-photo" data-reveal><img src="/images/training.png" alt="Profissional auxiliando um aluno durante o treino" loading="lazy" data-parallax /></div><div className="training-aside" data-reveal><div className="team-photo">{professionals.slice(0, 2).map((p) => <img src={p.image} alt={p.alt} key={p.image} loading="lazy" />)}<div className="team-count"><strong>+10</strong><span>Profissionais<br />com você</span></div><a href="#contato" aria-label="Conheça nossa equipe">↗</a></div><p>Acompanhamento de perto e profissionais preparados para ajudar você a ir além. Seu objetivo, com a orientação certa.</p><CTA href="#contato">CONHEÇA A EQUIPE</CTA></div></div></section>; }

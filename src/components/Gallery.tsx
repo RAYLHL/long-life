@@ -33,7 +33,7 @@ export default function Gallery() {
   }, []);
 
   return (
-    <section className="gallery-section" aria-label="Galeria Long Life">
+    <section className="gallery-section" id="galeria" aria-label="Galeria Long Life">
       <div className="gallery-grid">
         {galleryItems.map((item) => (
           <div className={`gallery-item gallery-frame ${item.className}`} key={item.className}>

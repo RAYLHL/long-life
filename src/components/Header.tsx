@@ -5,7 +5,7 @@ import { Logo } from './Shared';
 const links = [
   ['SOBRE', '#sobre'],
   ['PLANOS', '#planos'],
-  ['UNIDADES', '#unidades'],
+  ['EQUIPE', '#equipe'],
   ['CONTATO', '#contato'],
 ];
 
