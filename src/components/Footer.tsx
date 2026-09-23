@@ -45,10 +45,14 @@ export default function Footer() {
         <div className="footer-bottom">
           <span
             className="socials"
-            aria-label="Redes sociais ainda não configuradas"
+            aria-label="Redes sociais"
           >
-            <span title="Instagram">◎</span>
-            <span title="Facebook">f</span>
+            <span title="Instagram">
+              <img src="/icon/icons-insta.png" alt="Instagram" />
+            </span>
+            <span title="Facebook">
+              <img src="/icon/icon-facebook.png" alt="Facebook" />
+            </span>
             <span title="YouTube">▷</span>
           </span>
           <p>

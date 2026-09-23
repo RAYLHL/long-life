@@ -38,8 +38,11 @@ export default function Hero() {
             <span className="hero-academia">ACADEMIA</span>
             <img className="hero-logo-title" src="/images/logoTitle.png" alt="Academia Long Life" />
           </h1>
-          <p>O lugar perfeito para<br />mudar de vida!</p>
-          <a className="hero-cta" href="#planos">SEJA NOSSO ALUNO</a>
+          <p className="hero-tagline">TREINE FORTE PARA<br />VIVER LONGE!</p>
+          <div className="hero-cta-wrap">
+            <div className="hero-cta-backdrop" aria-hidden="true" />
+            <a className="hero-cta" href="#planos">SEJA NOSSO ALUNO</a>
+          </div>
         </div>
       </div>
       <div className="hero-indicators" aria-label="Slides do Hero">

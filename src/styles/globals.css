@@ -207,7 +207,7 @@ main {
 .hero-copy {
   position: absolute;
   top: 25.5%;
-  left: clamp(20px, 7.1vw, 100px);
+  left: clamp(20px, 4.6vw, 64px);
   max-width: 45%;
 }
 .hero h1 {
@@ -215,7 +215,7 @@ main {
 }
 .hero-academia {
   display: block;
-  margin: 0 0 2px 6%;
+  margin: 0 0 2px clamp(30px, 1vw, 20px);
   color: var(--color-white);
   font-family: 'Russo One', sans-serif;
   font-size: clamp(24px, 3.1vw, 44px);
@@ -231,11 +231,17 @@ main {
   color: #bdbdbd;
   font-size: clamp(21px, 2.15vw, 31px);
   line-height: 1.32;
-  margin: clamp(27px, 3.2vw, 43px) 0 clamp(35px, 4.2vw, 58px);
+  margin: clamp(24px, 2.8vw, 38px) 0 clamp(32px, 3.8vw, 52px) clamp(8px, 0.85vw, 12px);
+}
+.hero-tagline {
+  font-family: var(--heading);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 .hero-cta {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -250,15 +256,21 @@ main {
   font-style: italic;
   line-height: 1;
   transition: filter 0.2s, transform 0.2s;
+  margin-left: clamp(24px, 0.85vw, 12px);
 }
-.hero-cta::before {
+.hero-cta-wrap {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+}
+.hero-cta-backdrop {
+  width: clamp(170px, 14vw, 200px);
   content: '';
   position: absolute;
-  z-index: -1;
-  top: 6px;
-  right: 6px;
-  bottom: -6px;
-  left: -6px;
+  inset: 0;
+  z-index: 0;
+  transform: translate(10px, 14px);
+  background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.92);
 }
 .hero-cta:hover {
@@ -363,7 +375,7 @@ main > footer {
   right: clamp(20px, 4.6vw, 64px);
 }
 .hero-copy {
-  left: clamp(20px, 4.6vw, 64px);
+  left: clamp(30px, 4.6vw, 80px);
 }
 .training {
   display: grid;
@@ -804,26 +816,10 @@ main > footer {
   font-weight: 700;
   letter-spacing: 1.2px;
 }
-.team-card-plus {
-  position: absolute;
-  z-index: 3;
-  top: 23px;
-  right: 23px;
-  display: grid;
-  place-items: center;
-  width: 57px;
-  height: 57px;
-  border: 2px solid var(--color-accent);
-  border-radius: 50%;
-  color: var(--color-accent);
-  font-size: 27px;
-  line-height: 1;
-}
-.team-card.is-active { transform: translateX(-50%) rotate(0deg) scale(1); opacity: 1; filter: brightness(1); z-index: 5; }
-.team-card.is-left { transform: translateX(calc(-50% - 215px)) rotate(11deg) scale(0.91); opacity: 0.58; filter: brightness(0.58); z-index: 3; }
-.team-card.is-right { transform: translateX(calc(-50% + 215px)) rotate(-11deg) scale(0.91); opacity: 0.58; filter: brightness(0.58); z-index: 3; }
-.team-card.is-far-left { transform: translateX(calc(-50% - 360px)) rotate(17deg) scale(0.78); opacity: 0.12; filter: brightness(0.35); z-index: 1; }
-.team-card.is-far-right { transform: translateX(calc(-50% + 360px)) rotate(-17deg) scale(0.78); opacity: 0.12; filter: brightness(0.35); z-index: 1; }
+.team-card.is-active { transform: translate(-50%, 0) rotate(0deg) scale(1); opacity: 1; filter: brightness(1); z-index: 50; }
+.team-card.is-carousel-left { transform: translate(calc(-50% - 188px), 42px) rotate(-10deg) scale(0.82); opacity: 0.68; filter: brightness(0.72); z-index: 20; }
+.team-card.is-carousel-right { transform: translate(calc(-50% + 188px), 42px) rotate(10deg) scale(0.82); opacity: 0.68; filter: brightness(0.72); z-index: 20; }
+.team-card.is-carousel-hidden { transform: translate(-50%, 150px) scale(0.56) rotate(0deg); opacity: 0; filter: brightness(0.35); z-index: 0; pointer-events: none; }
 .team-control {
   position: absolute;
   z-index: 8;
@@ -843,6 +839,7 @@ main > footer {
   transition: border-color 0.2s, color 0.2s;
 }
 .team-control:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.team-control:disabled { cursor: default; opacity: 0.65; }
 .team-control-prev { left: 0; }
 .team-control-next { right: 0; }
 .featured-plan.plan-card-next {
@@ -1169,36 +1166,51 @@ main > footer {
   line-height: 1.13;
   letter-spacing: -0.02em;
 }
-.newsletter form {
+.instagram-cta {
   display: flex;
-  background: #383838;
-  border-radius: 6px;
-  padding: 5px;
+  align-items: center;
+  gap: 18px;
   max-width: 408px;
+  padding: 5px;
+  border-radius: 6px;
+  background: #383838;
   margin-top: 51px;
-  gap: 8px;
 }
-.newsletter input {
+.instagram-profile {
+  display: inline-flex;
+  align-items: center;
   min-width: 0;
   flex: 1;
-  background: transparent;
-  color: white;
-  border: 0;
+  gap: 10px;
   padding: 9px 13px;
-  font-size: 12px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
-.newsletter form button {
+.instagram-profile img {
+  width: 21px;
+  height: 21px;
+  object-fit: contain;
+  filter: invert(1);
+}
+.instagram-follow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   background: var(--color-accent);
   color: black;
   border-radius: 5px;
   padding: 0 17px;
   font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: background-color 180ms ease, transform 180ms ease;
 }
-.newsletter-status {
-  font-size: 10px;
-  color: #bbb;
-  margin-top: 22px;
-  line-height: 1.5;
+.instagram-follow:hover,
+.instagram-follow:focus-visible {
+  background: #ff9b24;
+  transform: translateY(-2px);
 }
 .location-card {
   height: 244px;
@@ -1300,17 +1312,110 @@ main > footer {
 }
 .socials {
   display: flex;
-  gap: 9px;
+  gap: 12px;
 }
-.socials span {
+.long-life-location-map,
+.long-life-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 244px;
+  overflow: hidden;
+  border-radius: inherit;
+  background: #171717;
+}
+.long-life-map .maplibregl-canvas-container,
+.long-life-map .maplibregl-canvas {
+  width: 100%;
+  height: 100%;
+}
+.long-life-map .maplibregl-canvas {
+  display: block;
+}
+.long-life-marker {
+  position: relative;
+  cursor: pointer;
+}
+.long-life-map-pin,
+.long-life-marker-dot {
+  display: block;
   width: 25px;
   height: 25px;
-  border: 1px solid #ddd;
+  padding: 0;
+  border: 3px solid white;
+  border-radius: 50% 50% 50% 0;
+  background: #f68806;
+  box-shadow: 0 3px 12px rgb(0 0 0 / 45%);
+  transform: rotate(-45deg);
+  cursor: pointer;
+  transition: transform 180ms ease;
+}
+.long-life-map-pin:hover,
+.long-life-map-pin:focus-visible {
+  transform: rotate(-45deg) scale(1.14);
+  outline: none;
+}
+.long-life-tooltip {
+  pointer-events: none;
+  border-radius: 6px;
+  background: #111;
+  color: white;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 5px 18px rgb(0 0 0 / 30%);
+}
+.maplibregl-popup-content {
+  padding: 0;
+  background: transparent;
+}
+.maplibregl-popup-tip {
+  border-top-color: #111;
+}
+.socials span {
+  width: 42px;
+  height: 42px;
+  border: 2px solid black;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: #aaa;
-  font-size: 13px;
+  background: black;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 180ms ease, background-color 180ms ease,
+    color 180ms ease, box-shadow 180ms ease;
+}
+.socials span:first-child {
+  font-size: 27px;
+  font-weight: 400;
+}
+.socials span:nth-child(2) {
+  font-family: Arial, sans-serif;
+  font-size: 25px;
+}
+.socials span:last-child {
+  padding-left: 2px;
+  font-size: 16px;
+}
+.socials img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: invert(1);
+}
+.socials span:hover,
+.socials span:focus-visible {
+  background: white;
+  color: black;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 0 var(--color-accent);
+  outline: none;
+}
+.socials span:hover img,
+.socials span:focus-visible img {
+  filter: none;
 }
 .footer .back-top {
   display: grid;
@@ -1626,7 +1731,7 @@ main > footer {
   .location-card {
     height: 210px;
   }
-  .newsletter form {
+  .instagram-cta {
     margin-top: 37px;
   }
   .footer-top {
@@ -1647,14 +1752,12 @@ main > footer {
   .team-carousel { height: 390px; }
   .team-stage { width: 100%; height: 390px; }
   .team-card { width: 250px; height: 390px; border-radius: 20px; }
-  .team-card.is-left { transform: translateX(calc(-50% - 150px)) rotate(10deg) scale(0.88); }
-  .team-card.is-right { transform: translateX(calc(-50% + 150px)) rotate(-10deg) scale(0.88); }
-  .team-card.is-far-left { transform: translateX(calc(-50% - 245px)) rotate(15deg) scale(0.75); }
-  .team-card.is-far-right { transform: translateX(calc(-50% + 245px)) rotate(-15deg) scale(0.75); }
+  .team-card.is-carousel-left { transform: translate(calc(-50% - 116px), 34px) rotate(-8deg) scale(0.82); }
+  .team-card.is-carousel-right { transform: translate(calc(-50% + 116px), 34px) rotate(8deg) scale(0.82); }
+  .team-card.is-carousel-hidden { transform: translate(-50%, 100px) scale(0.56) rotate(0deg); }
   .team-card-info { left: 22px; bottom: 22px; }
   .team-card-info h3 { font-size: 23px; }
   .team-card-info p { font-size: 10px; margin-top: 6px; }
-  .team-card-plus { top: 16px; right: 16px; width: 43px; height: 43px; font-size: 21px; }
   .team-control { width: 44px; height: 44px; font-size: 30px; }
   .team-control-prev { left: 2px; }
   .team-control-next { right: 2px; }
@@ -1739,7 +1842,7 @@ main > footer {
   }
   .hero-copy {
     top: 30%;
-    left: 7%;
+    left: clamp(20px, 4.6vw, 64px);
     max-width: 87%;
   }
   .hero h1 {
@@ -1756,7 +1859,7 @@ main > footer {
     width: min(78vw, 300px);
   }
   .hero-academia {
-    margin-left: 5%;
+    margin-left: 8px;
     font-size: clamp(20px, 6.2vw, 28px);
   }
   .hero-cta {
@@ -2016,21 +2119,19 @@ main > footer {
     font-size: 34px;
     max-width: 350px;
   }
-  .newsletter form {
-    margin-top: 28px;
+  .instagram-cta {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 16px;
     max-width: none;
+    margin-top: 28px;
   }
-  .newsletter input {
-    font-size: 12px;
-    padding: 13px 10px;
+  .instagram-profile {
+    justify-content: center;
   }
-  .newsletter form button {
-    font-size: 10px;
-    padding: 0 12px;
-  }
-  .newsletter-status {
-    font-size: 10px;
-    margin-top: 14px;
+  .instagram-follow {
+    justify-content: center;
+    width: 100%;
   }
   .location-card {
     height: 210px;

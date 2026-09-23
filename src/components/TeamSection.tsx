@@ -12,21 +12,24 @@ const professionals = [
 const positionFor = (index: number, active: number) => {
   const relative = (index - active + professionals.length) % professionals.length;
   if (relative === 0) return 'is-active';
-  if (relative === 1) return 'is-right';
-  if (relative === 4) return 'is-left';
-  if (relative === 2) return 'is-far-right';
-  return 'is-far-left';
+  if (relative === 1) return 'is-carousel-right';
+  if (relative === professionals.length - 1) return 'is-carousel-left';
+  return 'is-carousel-hidden';
 };
 
 export default function TeamSection() {
   const [active, setActive] = useState(0);
+  const [isMoving, setIsMoving] = useState(false);
   const cards = useMemo(() => professionals.map((person, index) => ({
     ...person,
     position: positionFor(index, active),
   })), [active]);
 
   const move = (direction: number) => {
+    if (isMoving) return;
+    setIsMoving(true);
     setActive((current) => (current + direction + professionals.length) % professionals.length);
+    window.setTimeout(() => setIsMoving(false), 620);
   };
 
   return (
@@ -36,12 +39,11 @@ export default function TeamSection() {
         <h2>CONHEÇA NOSSA EQUIPE</h2>
       </div>
       <div className="team-carousel">
-        <button className="team-control team-control-prev" type="button" aria-label="Profissional anterior" onClick={() => move(-1)}>‹</button>
+        <button className="team-control team-control-prev" type="button" aria-label="Profissional anterior" onClick={() => move(-1)} disabled={isMoving}>‹</button>
         <div className="team-stage">
           {cards.map((person, index) => (
             <article className={`team-card ${person.position}`} key={`${person.name}-${index}`}>
               <img className="team-card-photo" src={person.image} alt={person.name} />
-              <span className="team-card-plus" aria-hidden="true">+</span>
               <div className="team-card-info">
                 <h3>{person.name}</h3>
                 <p>{person.role}</p>
@@ -49,7 +51,7 @@ export default function TeamSection() {
             </article>
           ))}
         </div>
-        <button className="team-control team-control-next" type="button" aria-label="Próximo profissional" onClick={() => move(1)}>›</button>
+        <button className="team-control team-control-next" type="button" aria-label="Próximo profissional" onClick={() => move(1)} disabled={isMoving}>›</button>
       </div>
     </section>
   );
