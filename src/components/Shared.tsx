@@ -30,15 +30,27 @@ export function LogoTitle() {
 export function CTA({
   href,
   children,
+  target,
+  rel,
 }: {
   href: string;
   children: React.ReactNode;
+  target?: string;
+  rel?: string;
 }) {
   return (
-    <a className="cta" href={href}>
+    <a className="cta" href={href} target={target} rel={rel}>
       {children}
       <span aria-hidden="true">➜</span>
     </a>
   );
 }
 import { publicAsset } from '../utils/publicAsset';
+import type { ButtonHTMLAttributes } from 'react';
+
+export function ArrowButton({ direction = 'right', size = 'md', className = '', ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { direction?: 'left' | 'right'; size?: 'sm' | 'md' | 'lg' }) {
+  const path = direction === 'left' ? 'm15 18-6-6 6-6' : 'm9 18 6-6-6-6';
+  return <button {...props} className={`arrow-button arrow-button-${size} ${className}`.trim()} type={props.type ?? 'button'} aria-label={props['aria-label'] ?? (direction === 'left' ? 'Anterior' : 'Próximo')}>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d={path} /></svg>
+  </button>;
+}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { plans, formatPrice } from '../data/plans';
-import { Chevrons } from './Shared';
+import { ArrowButton, Chevrons } from './Shared';
 export default function Plans({
   onSelect,
 }: {
@@ -28,18 +28,8 @@ export default function Plans({
             <span style={{ transform: `translateX(${selected * 100}%)` }} />
           </div>
           <div className="controls">
-            <button
-              aria-label="Plano anterior"
-              onClick={() => changePlan((selected + plans.length - 1) % plans.length)}
-            >
-              ←
-            </button>
-            <button
-              aria-label="Próximo plano"
-              onClick={() => changePlan((selected + 1) % plans.length)}
-            >
-              →
-            </button>
+            <ArrowButton direction="left" aria-label="Plano anterior" onClick={() => changePlan((selected + plans.length - 1) % plans.length)} />
+            <ArrowButton direction="right" aria-label="Próximo plano" onClick={() => changePlan((selected + 1) % plans.length)} />
           </div>
         </div>
         <div className="plans-row">
